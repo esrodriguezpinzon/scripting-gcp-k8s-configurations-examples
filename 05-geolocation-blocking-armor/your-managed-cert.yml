@@ -1,0 +1,9 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: your-co-managed-cert
+  namespace: default
+spec:
+  domains:
+    - your.first.domain
+    - your.second.domain

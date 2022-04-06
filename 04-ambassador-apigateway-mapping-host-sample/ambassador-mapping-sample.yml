@@ -1,0 +1,9 @@
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: your-default-micro-service-mapping
+  namespace: default
+spec:
+  host: your.domain.com
+  prefix: /
+  service: 'http://your-default-micro-service.default:80'

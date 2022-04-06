@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-api-sample
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-api-sample
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: python-api-sample
+    spec:
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: google-cloud-key
+      containers:
+      - image: gcr.io/your-project-id/python-api-sample:latest
+        imagePullPolicy: Always
+        name: python-api-sample
+        volumeMounts:
+        - mountPath: /var/credentials/google
+          name: google-cloud-key
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/credentials/google/credentials.json
+      restartPolicy: Always

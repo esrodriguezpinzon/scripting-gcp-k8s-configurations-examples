@@ -1,0 +1,16 @@
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: custom-backendconfig
+  namespace: default
+spec:
+  customRequestHeaders:
+    headers:
+    - "X-Client-Geo-Location:{client_region}"
+  healthCheck:
+    checkIntervalSec: 15
+    port: 80
+    type: HTTP
+    requestPath: /gke_health
+  securityPolicy:
+    name: "our-geolocation-policy"

@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gke-ingress-with-armor
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "your-static-ip"
+    networking.gke.io/v1beta1.FrontendConfig: "custom-ingress-frontend"
+    cloud.google.com/backend-config: '{"default": "custom-backendconfig"}'
+    networking.gke.io/managed-certificates: your-managed-cert
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - host: your.first.domain
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: first-k8s-service
+            port:
+              number: 80
+  - host: your.second.domain
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: second-k8s-service
+            port:
+              number: 80

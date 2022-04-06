@@ -1,0 +1,14 @@
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: your.domain.com
+  namespace: ambassador
+spec:
+  hostname: your.domain.com-host
+  # TLS happens at the LB, so disable it here.
+  acmeProvider:
+    authority: none
+  requestPolicy:
+    insecure:
+      action: Route
+      additionalPort: -1
